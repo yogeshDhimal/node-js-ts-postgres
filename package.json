@@ -2,21 +2,26 @@
   "name": "js-ts-postgres",
   "version": "1.0.0",
   "description": "",
+  "type":"module",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "tsx watch src/server.ts"
+    "dev": "tsx watch src/server.ts",
+    "typeorm": "typeorm-ts-node-esm",
+    "migration:generate": "typeorm-ts-node-esm -d src/config/database.ts migration:generate",
+    "migration:run": "typeorm-ts-node-esm -d src/config/database.ts migration:run",
+    "migration:revert": "typeorm-ts-node-esm -d src/config/database.ts migration:revert"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "type": "commonjs",
   "devDependencies": {
     "@types/express": "^5.0.6",
     "@types/node": "^26.6.4",
     "@types/pg": "^8.23.1",
+    "ts-node": "^10.9.2",
     "tsx": "^4.23.15",
-    "typescript": "^7.0.2"
+    "typescript": "^6.0.3"
   },
   "dependencies": {
     "dotenv": "^18.0.5",
