@@ -2,9 +2,18 @@
 
 import "dotenv/config";
 import app from "./app.js";
+import AppDataSource from "./config/database.js";
 
 const PORT = process.env.PORT || 3000;
 
-app.listen(PORT, () => {
-  console.log(`Server running on port ${PORT}`);
-});
+AppDataSource.initialize()
+  .then(() => {
+    console.log("Database connected");
+
+    app.listen(PORT, () => {
+      console.log(`Server running on port ${PORT}`);
+    });
+  })
+  .catch((error) => {
+    console.error("Database connection failed:", error);
+  });
