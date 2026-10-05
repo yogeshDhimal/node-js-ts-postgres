@@ -7,7 +7,7 @@ export class User {
     @PrimaryGeneratedColumn()
     id!: number;
 
-    @Column({ type: "varchar", length: 100 })
+    @Column({ type: "varchar", length: 100 }) // column vitra ko nadida pani hunxa. Column() matra garda pani hunxa 
     firstName!: string;
 
     @Column({ type: "varchar", length: 100 })
@@ -16,7 +16,7 @@ export class User {
     @Column({ type: "varchar", length: 255, unique: true })
     email!: string;
 
-    @Column({ type: "varchar", length: 255, select: false }) //select false vaneko data fetch garda password include hudaina
+    @Column({ type: "varchar", length: 255, select: false }) //select false vaneko user ko data fetch garda password include hudaina
     password!: string;
 
     @Column({ type: "int", nullable: true })
