@@ -2,10 +2,11 @@
 
 import AppDataSource from "../config/database.js";
 import { User } from "../models/user.entity.js";
+import bcrypt from "bcrypt";
 
 const userRepository = AppDataSource.getRepository(User);
 
-interface createUserData {
+interface CreateUserData {
     firstName: string;
     lastName: string;
     email: string;
@@ -13,10 +14,15 @@ interface createUserData {
     age: number | null;
 }
 
-export const createUser = async (data: createUserData) => {
-    const user = userRepository.create(data);
+export const createUser = async (data: CreateUserData) => {
+    const hashedPassword = await bcrypt.hash(data.password, 10);
 
-    const savedUser = userRepository.save(user);
+    const user = userRepository.create({
+        ...data,
+        password: hashedPassword
+    });
+
+    const savedUser = await userRepository.save(user);
 
     return savedUser;
 }
