@@ -1,7 +1,7 @@
 
 
 import { Request, Response } from "express";
-import { createUser } from "../services/user.service.js";
+import { createUser, getAllUsers } from "../services/user.service.js";
 import { createUserSchema } from "../validators/user.validator.js";
 import { ZodError } from "zod";
 
@@ -26,3 +26,17 @@ export const createUserController = async (req: Request, res: Response) => {
         }
     }
 };
+
+
+export const getAllUsersController = async (req: Request, res: Response) => {
+    try {
+        const users = await getAllUsers();
+
+        return res.json({
+            users,
+            success: true
+        })
+    } catch (error) {
+        console.log(error);
+    }
+}

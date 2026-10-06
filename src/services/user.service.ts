@@ -26,3 +26,9 @@ export const createUser = async (data: CreateUserData) => {
 
     return savedUser;
 }
+
+export const getAllUsers = async () => {
+    const users = await userRepository.find();
+
+    return users;
+}
