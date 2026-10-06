@@ -25,10 +25,20 @@ export const createUser = async (data: CreateUserData) => {
     const savedUser = await userRepository.save(user);
 
     return savedUser;
-}
+};
 
 export const getAllUsers = async () => {
     const users = await userRepository.find();
 
     return users;
-}
+};
+
+export const getSingleUser = async (id: number) => {
+    const user = await userRepository.findOne({
+        where: {
+            id
+        }
+    });
+
+    return user;
+};

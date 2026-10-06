@@ -1,7 +1,7 @@
 
 
 import { Request, Response } from "express";
-import { createUser, getAllUsers } from "../services/user.service.js";
+import { createUser, getAllUsers, getSingleUser } from "../services/user.service.js";
 import { createUserSchema } from "../validators/user.validator.js";
 import { ZodError } from "zod";
 
@@ -33,10 +33,25 @@ export const getAllUsersController = async (req: Request, res: Response) => {
         const users = await getAllUsers();
 
         return res.json({
-            users,
+            users, // password auudaina because entuty ma password lai select: false gareko xa.
             success: true
         })
     } catch (error) {
         console.log(error);
     }
-}
+};
+
+export const getSingleUserController = async (req: Request, res: Response) => {
+    try {
+        const id = Number(req.params.id);
+
+        const user = await getSingleUser(id);
+
+        return res.json({
+            user,
+            success: true
+        })
+    } catch (error) {
+        console.log(error);
+    }
+};
