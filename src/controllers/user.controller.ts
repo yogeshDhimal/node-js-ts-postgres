@@ -3,13 +3,13 @@
 import { Request, Response } from "express";
 import { createUser } from "../services/user.service.js";
 import { createUserSchema } from "../validators/user.validator.js";
-import { ZodError } from "zod"
+import { ZodError } from "zod";
 
 export const createUserController = async (req: Request, res: Response) => {
     try {
         const validatedData = createUserSchema.parse(req.body);
 
-        const user = await createUser(validatedData);
+        const user = await createUser(validatedData);//controller ma service lai call garne.
 
         res.status(201).json({
             user,
