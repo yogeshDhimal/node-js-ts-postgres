@@ -54,9 +54,9 @@ export const updateUser = async (id: number, data: Partial<User>) => {
         return null;
     }
 
-    const updateData = {
+    const updateData = { // data to be used for update. // data prepared for updating
         ...data,
-        ...(data.password && {
+        ...(data.password && {   // data ma pw ni x vane teslai hash garera store garne
             password: await bcrypt.hash(data.password, 10)
         })
     };
