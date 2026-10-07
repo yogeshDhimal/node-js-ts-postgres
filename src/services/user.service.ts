@@ -54,7 +54,14 @@ export const updateUser = async (id: number, data: Partial<User>) => {
         return null;
     }
 
-    Object.assign(user, data); // data ko properties lai user ma copy garne
+    const updateData = {
+        ...data,
+        ...(data.password && {
+            password: await bcrypt.hash(data.password, 10)
+        })
+    };
+
+    Object.assign(user, updateData); // data ko properties lai user ma copy garne
 
     const updatedUser = await userRepository.save(user);
 
