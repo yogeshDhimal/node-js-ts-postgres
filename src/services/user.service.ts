@@ -67,3 +67,19 @@ export const updateUser = async (id: number, data: Partial<User>) => {
 
     return updatedUser;
 }
+
+export const deleteUser = async (id: number) => {
+    const user = await userRepository.findOne({
+        where: {
+            id
+        }
+    });
+
+    if (!user) {
+        return null;
+    }
+
+    await userRepository.remove(user);
+
+    return user;
+};

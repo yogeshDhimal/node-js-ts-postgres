@@ -1,7 +1,7 @@
 
 
 import { Request, Response } from "express";
-import { createUser, getAllUsers, getSingleUser, updateUser } from "../services/user.service.js";
+import { createUser, deleteUser, getAllUsers, getSingleUser, updateUser } from "../services/user.service.js";
 import { createUserSchema, updateUserSchema } from "../validators/user.validator.js";
 import { ZodError } from "zod";
 
@@ -69,6 +69,21 @@ export const updateUserController = async (req: Request, res: Response) => {
             success: true
         });
     } catch (error) {
-        console.log(error)
+        console.log(error);
+    }
+};
+
+export const deleteUserController = async (req: Request, res: Response) => {
+    try {
+        const id = Number(req.params.id);
+
+        const deletedUser = await deleteUser(id);
+
+        return res.json({
+            deletedUser: deletedUser,
+            success: true
+        });
+    } catch (error) {
+        console.log(error);
     }
 };
