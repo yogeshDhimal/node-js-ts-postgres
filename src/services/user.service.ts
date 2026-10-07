@@ -42,3 +42,21 @@ export const getSingleUser = async (id: number) => {
 
     return user;
 };
+
+export const updateUser = async (id: number, data: Partial<User>) => {
+    const user = await userRepository.findOne({
+        where: {
+            id
+        }
+    });
+
+    if (!user) {
+        return null;
+    }
+
+    Object.assign(user, data); // data ko properties lai user ma copy garne
+
+    const updatedUser = await userRepository.save(user);
+
+    return updatedUser;
+}

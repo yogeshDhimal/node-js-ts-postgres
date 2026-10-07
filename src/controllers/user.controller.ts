@@ -1,8 +1,8 @@
 
 
 import { Request, Response } from "express";
-import { createUser, getAllUsers, getSingleUser } from "../services/user.service.js";
-import { createUserSchema } from "../validators/user.validator.js";
+import { createUser, getAllUsers, getSingleUser, updateUser } from "../services/user.service.js";
+import { createUserSchema, updateUserSchema } from "../validators/user.validator.js";
 import { ZodError } from "zod";
 
 export const createUserController = async (req: Request, res: Response) => {
@@ -53,5 +53,22 @@ export const getSingleUserController = async (req: Request, res: Response) => {
         })
     } catch (error) {
         console.log(error);
+    }
+};
+
+export const updateUserController = async (req: Request, res: Response) => {
+    try {
+        const id = Number(req.params.id);
+
+        const validatedData = updateUserSchema.parse(req.body);
+
+        const updatedUser = await updateUser(id, validatedData);
+
+        return res.json({
+            updatedUser,
+            success: true
+        });
+    } catch (error) {
+        console.log(error)
     }
 };

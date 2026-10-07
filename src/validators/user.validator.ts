@@ -19,3 +19,5 @@ export const createUserSchema = z.object({
 
     age: z.number().int().min(1).max(120).nullable(),
 });
+
+export const updateUserSchema = createUserSchema.partial();
